@@ -1,0 +1,28 @@
+{
+    "name": "faithgen/messages",
+    "description": "This is the package to handle FaithGen messaging",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "innoflash",
+            "email": "innocentmazando@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "faithgen/sdk": "^1.0.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "FaithGen\\Messages\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FaithGen\\Sermons\\Providers\\MessagesServiceProvider"
+            ]
+        }
+    }
+}
