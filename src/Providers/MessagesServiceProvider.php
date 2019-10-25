@@ -13,7 +13,15 @@ class MessagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if ($this->app->runningInConsole()) {
+            if (config('faithgen-sdk.source')) {
+                $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+                $this->publishes([
+                    __DIR__.'/../database/migrations/' => database_path('migrations')
+                ], 'faithgen-messages-migrations');
+            }
+        }
     }
 
     /**
