@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace FaithGen\Messages\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use FaithGen\Messages\Http\Requests\Message\CreateRequest;
 use FaithGen\Messages\Http\Requests\Message\GetRequest;
 use FaithGen\Messages\Http\Requests\Message\UpdateRequest;

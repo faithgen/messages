@@ -15,6 +15,7 @@ class MessagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->mergeConfigFrom(__DIR__. '/../config/faithgen-messages.php', 'faithgen-messages');
         if ($this->app->runningInConsole()) {
             if (config('faithgen-sdk.source')) {
                 $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -22,6 +23,10 @@ class MessagesServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__ . '/../database/migrations/' => database_path('migrations')
                 ], 'faithgen-messages-migrations');
+
+                $this->publishes([
+                    __DIR__ . '/../config/faithgen-messages.php' => config_path('faithgen-messages.php')
+                ], 'faithgen-messages-config');
             }
         }
 
