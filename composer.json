@@ -21,7 +21,9 @@
     "extra": {
         "laravel": {
             "providers": [
-                "FaithGen\\Sermons\\Providers\\MessagesServiceProvider"
+                "FaithGen\\Sermons\\Providers\\MessagesServiceProvider",
+                "FaithGen\\Sermons\\Providers\\AuthServiceProvider",
+                "FaithGen\\Sermons\\Providers\\EventServiceProvider"
             ]
         }
     }
