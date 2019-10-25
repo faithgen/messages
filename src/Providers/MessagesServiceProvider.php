@@ -2,6 +2,8 @@
 
 namespace FaithGen\Messages\Providers;
 
+use FaithGen\Messages\Models\Message;
+use FaithGen\Messages\Observers\MessageObserver;
 use Illuminate\Support\ServiceProvider;
 
 class MessagesServiceProvider extends ServiceProvider
@@ -15,13 +17,15 @@ class MessagesServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             if (config('faithgen-sdk.source')) {
-                $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+                $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
                 $this->publishes([
-                    __DIR__.'/../database/migrations/' => database_path('migrations')
+                    __DIR__ . '/../database/migrations/' => database_path('migrations')
                 ], 'faithgen-messages-migrations');
             }
         }
+
+        Message::observe(MessageObserver::class);
     }
 
     /**
