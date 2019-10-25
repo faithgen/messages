@@ -1,7 +1,7 @@
 <?php
 
 
-namespace FaithGen\Messages\Services;
+namespace FaithGen\Messages;
 
 
 use FaithGen\Messages\Models\Message;

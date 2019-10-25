@@ -4,6 +4,7 @@ namespace FaithGen\Messages\Providers;
 
 use FaithGen\Messages\Models\Message;
 use FaithGen\Messages\Observers\MessageObserver;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class MessagesServiceProvider extends ServiceProvider
@@ -15,7 +16,10 @@ class MessagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->mergeConfigFrom(__DIR__. '/../config/faithgen-messages.php', 'faithgen-messages');
+        $this->mergeConfigFrom(__DIR__ . '/../config/faithgen-messages.php', 'faithgen-messages');
+
+        $this->registerRoutes();
+
         if ($this->app->runningInConsole()) {
             if (config('faithgen-sdk.source')) {
                 $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
@@ -32,6 +36,25 @@ class MessagesServiceProvider extends ServiceProvider
 
         Message::observe(MessageObserver::class);
     }
+
+    private function registerRoutes()
+    {
+        Route::group($this->routeConfiguration(), function () {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/messages.php');
+            if (config('faithgen-sdk.source'))
+                $this->loadRoutesFrom(__DIR__ . '/../routes/source.php');
+        });
+    }
+
+    private function routeConfiguration()
+    {
+        return [
+            'prefix' => config('faithgen-messages.prefix'),
+            'namespace' => "FaithGen\Messages\Http\Controllers",
+            'middleware' => config('faithgen-messages.middlewares'),
+        ];
+    }
+
 
     /**
      * Register services.

@@ -7,7 +7,7 @@ use FaithGen\Messages\Http\Requests\Message\CreateRequest;
 use FaithGen\Messages\Http\Requests\Message\GetRequest;
 use FaithGen\Messages\Http\Requests\Message\UpdateRequest;
 use FaithGen\Messages\Http\Resources\Message as MessageResource;
-use FaithGen\Messages\Services\MessageService;
+use FaithGen\Messages\MessageService;
 use FaithGen\SDK\Http\Requests\IndexRequest;
 
 class MessageController extends Controller
