@@ -5,7 +5,7 @@ namespace FaithGen\Messages;
 
 
 use FaithGen\Messages\Models\Message;
-use FaithGen\SDK\Services\CRUDServices;
+use InnoFlash\LaraStart\Services\CRUDServices;
 
 class MessageService extends CRUDServices
 {
