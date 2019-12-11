@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\Messages\Http\Requests\Message;
+namespace FaithGen\Messages\Http\Requests;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;

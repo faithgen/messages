@@ -3,12 +3,14 @@
 namespace FaithGen\Messages\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use FaithGen\Messages\Http\Requests\Message\CreateRequest;
-use FaithGen\Messages\Http\Requests\Message\GetRequest;
-use FaithGen\Messages\Http\Requests\Message\UpdateRequest;
-use FaithGen\Messages\Http\Resources\Message as MessageResource;
 use FaithGen\Messages\MessageService;
 use FaithGen\SDK\Http\Requests\IndexRequest;
+use FaithGen\Messages\Http\Requests\GetRequest;
+use FaithGen\Messages\Http\Requests\CreateRequest;
+use FaithGen\Messages\Http\Requests\UpdateRequest;
+use FaithGen\Messages\Http\Requests\CommentRequest;
+use FaithGen\Messages\Http\Resources\Message as MessageResource;
+use FaithGen\SDK\Helpers\CommentHelper;
 
 class MessageController extends Controller
 {
@@ -44,5 +46,10 @@ class MessageController extends Controller
     function destroy(GetRequest $request)
     {
         return $this->messageService->destroy('Message deleted successfully!');
+    }
+
+    public function comment(CommentRequest $request)
+    {
+        return CommentHelper::createComment($this->messageService->getMessage(), $request);
     }
 }

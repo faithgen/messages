@@ -1,6 +1,6 @@
 <?php
 
-namespace FaithGen\Messages\Http\Requests\Message;
+namespace FaithGen\Messages\Http\Requests;
 
 use FaithGen\SDK\Helpers\Helper;
 use FaithGen\Messages\MessageService;
