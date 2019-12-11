@@ -2,8 +2,9 @@
 
 namespace FaithGen\Messages\Http\Requests\Message;
 
+use FaithGen\Messages\MessageService;
 use FaithGen\SDK\Helpers\Helper;
-use FaithGen\Messages\Models\Message;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GetRequest extends FormRequest
@@ -13,10 +14,9 @@ class GetRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(MessageService $messageService)
     {
-        $message = Message::findOrFail(request()->message_id);
-        return $this->user()->can('message.view', $message);
+        return $this->user()->can('message.view', $messageService->getMessage());
     }
 
     /**
@@ -29,5 +29,10 @@ class GetRequest extends FormRequest
         return [
             'message_id' => Helper::$idValidation
         ];
+    }
+
+    function failedAuthorization()
+    {
+        throw new AuthorizationException('You do not have access to this message');
     }
 }
