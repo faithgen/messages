@@ -10,7 +10,9 @@ use FaithGen\Messages\Http\Requests\CreateRequest;
 use FaithGen\Messages\Http\Requests\UpdateRequest;
 use FaithGen\Messages\Http\Requests\CommentRequest;
 use FaithGen\Messages\Http\Resources\Message as MessageResource;
+use FaithGen\Messages\Models\Message;
 use FaithGen\SDK\Helpers\CommentHelper;
+use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
@@ -51,5 +53,11 @@ class MessageController extends Controller
     public function comment(CommentRequest $request)
     {
         return CommentHelper::createComment($this->messageService->getMessage(), $request);
+    }
+
+    public function comments(Request $request, Message $message)
+    {
+        $this->authorize('message.view', $message);
+        return CommentHelper::getComments($message, $request);
     }
 }
