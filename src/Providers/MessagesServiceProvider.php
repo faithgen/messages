@@ -2,6 +2,7 @@
 
 namespace FaithGen\Messages\Providers;
 
+use FaithGen\Messages\MessageService;
 use FaithGen\Messages\Models\Message;
 use FaithGen\Messages\Observers\MessageObserver;
 use FaithGen\SDK\Traits\ConfigTrait;
@@ -36,6 +37,8 @@ class MessagesServiceProvider extends ServiceProvider
         ], 'faithgen-messages-config');
 
         Message::observe(MessageObserver::class);
+
+        $this->app->singleton(MessageService::class, MessageService::class);
     }
 
     /**
