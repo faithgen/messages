@@ -2,20 +2,25 @@
 
 namespace FaithGen\Messages\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use FaithGen\Messages\MessageService;
+use FaithGen\Messages\Models\Message;
+use FaithGen\SDK\Helpers\CommentHelper;
 use FaithGen\SDK\Http\Requests\IndexRequest;
 use FaithGen\Messages\Http\Requests\GetRequest;
 use FaithGen\Messages\Http\Requests\CreateRequest;
 use FaithGen\Messages\Http\Requests\UpdateRequest;
 use FaithGen\Messages\Http\Requests\CommentRequest;
 use FaithGen\Messages\Http\Resources\Message as MessageResource;
-use FaithGen\Messages\Models\Message;
-use FaithGen\SDK\Helpers\CommentHelper;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use InnoFlash\LaraStart\Traits\APIResponses;
 
 class MessageController extends Controller
 {
+    use AuthorizesRequests, ValidatesRequests, APIResponses, DispatchesJobs;
     /**
      * @var MessageService
      */
