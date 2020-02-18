@@ -63,7 +63,7 @@ class MessagePolicy
      * @param Message $message
      * @return mixed
      */
-    public static function delete(Ministry $user, Message $message)
+    public function delete(Ministry $user, Message $message)
     {
         return $user->id === $message->ministry_id;
     }
