@@ -2,6 +2,7 @@
 
 namespace FaithGen\Messages\Http\Requests;
 
+use FaithGen\Messages\Models\Message;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +15,7 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('message.create');
+        return $this->user()->can('create', Message::class);
     }
 
     /**

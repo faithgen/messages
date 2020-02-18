@@ -16,7 +16,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(MessageService $messageService)
     {
-        return $this->user()->can('message.view', $messageService->getMessage());
+        return $messageService->getMessage()
+            && $this->user()->can('update', $messageService->getMessage());
     }
 
     /**

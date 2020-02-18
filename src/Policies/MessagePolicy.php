@@ -31,7 +31,7 @@ class MessagePolicy
      * @param Ministry $user
      * @return mixed
      */
-    public static function create(Ministry $user)
+    public function create(Ministry $user)
     {
         if ($user->account->level !== 'Free')
             return true;
@@ -51,7 +51,7 @@ class MessagePolicy
      * @param Message $message
      * @return mixed
      */
-    public static function update(Ministry $user, Message $message)
+    public function update(Ministry $user, Message $message)
     {
         return $user->id === $message->ministry_id;
     }

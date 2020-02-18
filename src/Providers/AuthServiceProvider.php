@@ -2,12 +2,16 @@
 
 namespace FaithGen\Messages\Providers;
 
+use FaithGen\Messages\Models\Message;
 use FaithGen\Messages\Policies\MessagePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    protected $policies = [
+        Message::class => MessagePolicy::class
+    ];
     /**
      * Bootstrap services.
      *
@@ -17,9 +21,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //messages gates
-        Gate::define('message.create', [MessagePolicy::class, 'create']);
-        Gate::define('message.update', [MessagePolicy::class, 'update']);
         Gate::define('message.delete', [MessagePolicy::class, 'delete']);
         Gate::define('message.view', [MessagePolicy::class, 'view']);
     }
