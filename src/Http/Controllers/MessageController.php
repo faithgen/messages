@@ -65,7 +65,7 @@ class MessageController extends Controller
 
     public function comments(Request $request, Message $message)
     {
-        $this->authorize('message.view', $message);
+        $this->authorize('view', $message);
         return CommentHelper::getComments($message, $request);
     }
 }
