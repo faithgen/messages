@@ -34,8 +34,10 @@ class MessageController extends Controller
     function index(IndexRequest $request)
     {
         $messages = auth()->user()->messages()
-            ->where('title', 'LIKE', '%' . $request->filter_text . '%')
-            ->orWhere('message', 'LIKE', '%' . $request->filter_text . '%')
+            ->where(function ($message) use ($request) {
+                return $message->where('title', 'LIKE', '%' . $request->filter_text . '%')
+                    ->orWhere('message', 'LIKE', '%' . $request->filter_text . '%');
+            })
             ->latest()->paginate($request->has('limit') ? $request->limit : 15);
         return MessageResource::collection($messages);
     }
