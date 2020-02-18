@@ -39,6 +39,7 @@ class MessageController extends Controller
                     ->orWhere('message', 'LIKE', '%' . $request->filter_text . '%');
             })
             ->latest()->paginate($request->has('limit') ? $request->limit : 15);
+	MessageResource::wrap('messages');
         return MessageResource::collection($messages);
     }
 
