@@ -11,7 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "faithgen/sdk": "^1.1.0",
+        "faithgen/sdk": "^2.0",
         "illuminate/support": "^6.0",
         "illuminate/database": "^6.0",
         "illuminate/contracts": "^6.0"
