@@ -45,7 +45,7 @@ class MessageController extends Controller
 
     function create(CreateRequest $request)
     {
-        return $this->messageService->createFromRelationship($request->validated(), 'Message created successfully!');
+        return $this->messageService->createFromParent($request->validated(), 'Message created successfully!');
     }
 
     function update(UpdateRequest $request)
