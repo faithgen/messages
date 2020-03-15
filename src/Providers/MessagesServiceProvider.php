@@ -31,7 +31,7 @@ class MessagesServiceProvider extends ServiceProvider
         });
 
         $this->publishes([
-            __DIR__ . '/../config/faithgen-messages.php' => config_path('faithgen-messages.php')
+            __DIR__ . '/../../config/faithgen-messages.php' => config_path('faithgen-messages.php')
         ], 'faithgen-messages-config');
 
         Message::observe(MessageObserver::class);
@@ -44,7 +44,7 @@ class MessagesServiceProvider extends ServiceProvider
      */
     public function register()
     {
- 	$this->mergeConfigFrom(__DIR__ . '/../config/faithgen-messages.php', 'faithgen-messages');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-messages.php', 'faithgen-messages');
         $this->app->singleton(MessageService::class, MessageService::class);
     }
 
