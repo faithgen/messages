@@ -23,10 +23,10 @@ class MessagesServiceProvider extends ServiceProvider
         $this->registerRoutes(__DIR__ . '/../routes/messages.php', __DIR__ . '/../routes/source.php');
 
         $this->setUpSourceFiles(function () {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/' => database_path('migrations')
+                __DIR__ . '/../../database/migrations/' => database_path('migrations')
             ], 'faithgen-messages-migrations');
         });
 
@@ -45,7 +45,7 @@ class MessagesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-messages.php', 'faithgen-messages');
-        $this->app->singleton(MessageService::class, MessageService::class);
+        $this->app->singleton(MessageService::class);
     }
 
     /**
