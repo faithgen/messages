@@ -16,6 +16,7 @@ use FaithGen\Messages\Http\Resources\Message as MessageResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use InnoFlash\LaraStart\Helper;
 use InnoFlash\LaraStart\Traits\APIResponses;
 
 class MessageController extends Controller
@@ -31,41 +32,80 @@ class MessageController extends Controller
         $this->messageService = $messageService;
     }
 
+    /**
+     * Fetches the ministry`s messages.
+     *
+     * @param IndexRequest $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     function index(IndexRequest $request)
     {
         $messages = auth()->user()->messages()
-            ->where(function ($message) use ($request) {
-                return $message->where('title', 'LIKE', '%' . $request->filter_text . '%')
-                    ->orWhere('message', 'LIKE', '%' . $request->filter_text . '%');
-            })
-            ->latest()->paginate($request->has('limit') ? $request->limit : 15);
-	MessageResource::wrap('messages');
+            ->where(fn($message) => $message->search(['title', 'message'], $request->filter_text))
+            ->latest()
+            ->paginate(Helper::getLimit($request));
+
+        MessageResource::wrap('messages');
+
         return MessageResource::collection($messages);
     }
 
+    /**
+     * Creates a message.
+     *
+     * @param CreateRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     function create(CreateRequest $request)
     {
         return $this->messageService->createFromParent($request->validated(), 'Message created successfully!');
     }
 
+    /**
+     * Updates a message.
+     *
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     function update(UpdateRequest $request)
     {
         return $this->messageService->update($request->validated());
     }
 
+    /**
+     * Deletes a message.
+     *
+     * @param GetRequest $request
+     * @return mixed
+     */
     function destroy(GetRequest $request)
     {
         return $this->messageService->destroy('Message deleted successfully!');
     }
 
+    /**
+     * Comments a message.
+     *
+     * @param CommentRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function comment(CommentRequest $request)
     {
         return CommentHelper::createComment($this->messageService->getMessage(), $request);
     }
 
+    /**
+     * Fetches a message`s comments.
+     *
+     * @param Request $request
+     * @param Message $message
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function comments(Request $request, Message $message)
     {
         $this->authorize('view', $message);
+
         return CommentHelper::getComments($message, $request);
     }
 }

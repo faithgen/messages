@@ -55,7 +55,6 @@ class MessagesServiceProvider extends ServiceProvider
     {
         return [
             'prefix' => config('faithgen-messages.prefix'),
-            'namespace' => "FaithGen\Messages\Http\Controllers",
             'middleware' => config('faithgen-messages.middlewares'),
         ];
     }
