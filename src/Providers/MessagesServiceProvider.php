@@ -6,7 +6,6 @@ use FaithGen\Messages\MessageService;
 use FaithGen\Messages\Models\Message;
 use FaithGen\Messages\Observers\MessageObserver;
 use FaithGen\SDK\Traits\ConfigTrait;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class MessagesServiceProvider extends ServiceProvider
@@ -20,18 +19,18 @@ class MessagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerRoutes(__DIR__ . '/../../routes/messages.php', __DIR__ . '/../../routes/source.php');
+        $this->registerRoutes(__DIR__.'/../../routes/messages.php', __DIR__.'/../../routes/source.php');
 
         $this->setUpSourceFiles(function () {
-            $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
             $this->publishes([
-                __DIR__ . '/../../database/migrations/' => database_path('migrations')
+                __DIR__.'/../../database/migrations/' => database_path('migrations'),
             ], 'faithgen-messages-migrations');
         });
 
         $this->publishes([
-            __DIR__ . '/../../config/faithgen-messages.php' => config_path('faithgen-messages.php')
+            __DIR__.'/../../config/faithgen-messages.php' => config_path('faithgen-messages.php'),
         ], 'faithgen-messages-config');
 
         Message::observe(MessageObserver::class);
@@ -44,14 +43,14 @@ class MessagesServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../../config/faithgen-messages.php', 'faithgen-messages');
+        $this->mergeConfigFrom(__DIR__.'/../../config/faithgen-messages.php', 'faithgen-messages');
         $this->app->singleton(MessageService::class);
     }
 
     /**
      * @return array
      */
-    function routeConfiguration(): array
+    public function routeConfiguration(): array
     {
         return [
             'prefix' => config('faithgen-messages.prefix'),

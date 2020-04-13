@@ -2,8 +2,8 @@
 
 namespace FaithGen\Messages\Http\Requests;
 
-use FaithGen\SDK\Helpers\Helper;
 use FaithGen\Messages\MessageService;
+use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -16,7 +16,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize(MessageService $messageService)
     {
-        return $messageService->getMessage() 
+        return $messageService->getMessage()
             && $this->user()->can('view', $messageService->getMessage());
     }
 
@@ -29,11 +29,11 @@ class CommentRequest extends FormRequest
     {
         return [
             'message_id' => Helper::$idValidation,
-            'comment' => 'required|string'
+            'comment' => 'required|string',
         ];
     }
 
-    function failedAuthorization()
+    public function failedAuthorization()
     {
         throw new AuthorizationException('You do not have access to this message');
     }

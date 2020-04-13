@@ -10,8 +10,9 @@ use Illuminate\Support\Facades\Gate;
 class AuthServiceProvider extends ServiceProvider
 {
     protected $policies = [
-        Message::class => MessagePolicy::class
+        Message::class => MessagePolicy::class,
     ];
+
     /**
      * Bootstrap services.
      *

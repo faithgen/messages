@@ -1,8 +1,6 @@
 <?php
 
-
 namespace FaithGen\Messages;
-
 
 use FaithGen\Messages\Models\Message;
 use InnoFlash\LaraStart\Services\CRUDServices;
@@ -16,10 +14,11 @@ class MessageService extends CRUDServices
 
     public function __construct(Message $message)
     {
-        if (request()->has('message_id'))
+        if (request()->has('message_id')) {
             $this->message = Message::findOrFail(request('message_id'));
-        else
+        } else {
             $this->message = $message;
+        }
     }
 
     /**
@@ -30,21 +29,20 @@ class MessageService extends CRUDServices
         return $this->message;
     }
 
-
     /**
-     * This sets the attributes to be removed from the given set for updating or creating
+     * This sets the attributes to be removed from the given set for updating or creating.
      * @return mixed
      */
-    function getUnsetFields()
+    public function getUnsetFields()
     {
         return 'message_id';
     }
 
     /**
-     * This get the model value or class of the model in the service
+     * This get the model value or class of the model in the service.
      * @return mixed
      */
-    function getModel()
+    public function getModel()
     {
         return $this->getMessage();
     }

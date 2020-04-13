@@ -12,7 +12,6 @@ class MessagePolicy
 {
     use HandlesAuthorization;
 
-
     /**
      * Determine whether the user can view the message.
      *
@@ -33,14 +32,15 @@ class MessagePolicy
      */
     public function create(Ministry $user)
     {
-        if ($user->account->level !== 'Free')
+        if ($user->account->level !== 'Free') {
             return true;
-        else {
+        } else {
             $messagesCount = Message::where('ministry_id', $user->id)->whereBetween('created_at', [Carbon::now()->firstOfMonth(), Carbon::now()->lastOfMonth()])->count();
-            if ($messagesCount >= Helper::$freeMessagesCount)
+            if ($messagesCount >= Helper::$freeMessagesCount) {
                 return false;
-            else
+            } else {
                 return true;
+            }
         }
     }
 
