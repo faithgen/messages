@@ -11,6 +11,8 @@ class Message extends UuidModel
 {
     use  CommentableTrait, BelongsToMinistryTrait, TitleTrait;
 
+    protected $table = 'fg_messages';
+
     //****************************************************************************//
     //***************************** MODEL ATTRIBUTES *****************************//
     //****************************************************************************//
