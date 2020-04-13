@@ -22,7 +22,7 @@ class Message extends JsonResource
             'date' => Helper::getDates($this->created_at),
             'comments' => [
                 'count' => number_format($this->comments()->count()),
-            ]
+            ],
         ];
     }
 }

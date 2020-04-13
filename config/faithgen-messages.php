@@ -2,12 +2,12 @@
 
 return [
     /**
-     * The prefix to your messages routes
+     * The prefix to your messages routes.
      */
     'prefix' => 'api',
 
     /**
-     * add more middlewares here if any
+     * add more middlewares here if any.
      */
     'middlewares' => [
         'auth:api', // this filters for authenticated requests from the ministry

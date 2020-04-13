@@ -1,15 +1,13 @@
 <?php
 
-
 namespace FaithGen\Messages\Traits;
-
 
 use FaithGen\Messages\Models\Message;
 
 trait HasManyMessages
 {
     /**
-     * Relates many messages to a given model
+     * Relates many messages to a given model.
      *
      * @return mixed
      */

@@ -16,7 +16,7 @@ class GetRequest extends FormRequest
      */
     public function authorize(MessageService $messageService)
     {
-        return $messageService->getMessage() 
+        return $messageService->getMessage()
             && $this->user()->can('view', $messageService->getMessage());
     }
 
@@ -28,11 +28,11 @@ class GetRequest extends FormRequest
     public function rules()
     {
         return [
-            'message_id' => Helper::$idValidation
+            'message_id' => Helper::$idValidation,
         ];
     }
 
-    function failedAuthorization()
+    public function failedAuthorization()
     {
         throw new AuthorizationException('You do not have access to this message');
     }

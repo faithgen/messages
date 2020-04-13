@@ -2,10 +2,10 @@
 
 namespace FaithGen\Messages\Http\Requests;
 
-use FaithGen\SDK\Helpers\Helper;
 use FaithGen\Messages\MessageService;
-use Illuminate\Foundation\Http\FormRequest;
+use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
@@ -30,11 +30,11 @@ class UpdateRequest extends FormRequest
         return [
             'title' => 'required|string',
             'message' => 'required|string|max:1500',
-            'message_id' => Helper::$idValidation
+            'message_id' => Helper::$idValidation,
         ];
     }
 
-    function failedAuthorization()
+    public function failedAuthorization()
     {
         throw new AuthorizationException('You do not have access to this message');
     }
