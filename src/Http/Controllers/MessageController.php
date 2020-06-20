@@ -2,7 +2,6 @@
 
 namespace FaithGen\Messages\Http\Controllers;
 
-use FaithGen\Messages\Http\Requests\CommentRequest;
 use FaithGen\Messages\Http\Requests\CreateRequest;
 use FaithGen\Messages\Http\Requests\GetRequest;
 use FaithGen\Messages\Http\Requests\UpdateRequest;
@@ -10,6 +9,7 @@ use FaithGen\Messages\Http\Resources\Message as MessageResource;
 use FaithGen\Messages\MessageService;
 use FaithGen\Messages\Models\Message;
 use FaithGen\SDK\Helpers\CommentHelper;
+use FaithGen\SDK\Http\Requests\CommentRequest;
 use FaithGen\SDK\Http\Requests\IndexRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -69,7 +69,7 @@ class MessageController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        return $this->messageService->update($request->validated());
+        return $this->messageService->update($request->validated(), 'Message updated successfully');
     }
 
     /**
