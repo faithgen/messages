@@ -14,14 +14,12 @@ class MessageService extends CRUDServices
 
     public function __construct()
     {
-        $this->message = new Message();
+        $this->message = app(Message::class);
 
-        if (request()->has('message_id')) {
-            $this->message = Message::findOrFail(request('message_id'));
-        }
+        $messageId = request()->route('message') ?? request('message_id');
 
-        if (request()->route('message')) {
-            $this->message = request()->route('message');
+        if ($messageId) {
+            $this->message = $this->message->resolveRouteBinding($messageId);
         }
     }
 
