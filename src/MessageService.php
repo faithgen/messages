@@ -10,19 +10,25 @@ class MessageService extends CRUDServices
     /**
      * @var Message
      */
-    private $message;
+    protected Message $message;
 
-    public function __construct(Message $message)
+    public function __construct()
     {
+        $this->message = new Message();
+
         if (request()->has('message_id')) {
             $this->message = Message::findOrFail(request('message_id'));
-        } else {
-            $this->message = $message;
+        }
+
+        if (request()->route('message')) {
+            $this->message = request()->route('message');
         }
     }
 
     /**
-     * @return Message
+     * Retrieves an instance of message.
+     *
+     * @return \FaithGen\Messages\Models\Message
      */
     public function getMessage(): Message
     {
@@ -30,21 +36,15 @@ class MessageService extends CRUDServices
     }
 
     /**
-     * This sets the attributes to be removed from the given set for updating or creating.
-     * @return mixed
+     * Makes a list of fields that you do not want to be sent
+     * to the create or update methods.
+     * Its mainly the fields that you do not have in the messages table.
+     *
+     * @return array
      */
-    public function getUnsetFields()
+    public function getUnsetFields(): array
     {
-        return 'message_id';
-    }
-
-    /**
-     * This get the model value or class of the model in the service.
-     * @return mixed
-     */
-    public function getModel()
-    {
-        return $this->getMessage();
+        return ['message_id'];
     }
 
     public function getParentRelationship()

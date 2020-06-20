@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": "^7.4",
-        "faithgen/sdk": "^2.0",
+        "faithgen/sdk": "^3.0",
         "illuminate/support": "^6.0|^7.0",
         "illuminate/database": "^6.0|^7.0",
         "illuminate/contracts": "^6.0|^7.0"
