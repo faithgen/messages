@@ -8,6 +8,6 @@ Route::name('messages.')
     ->middleware('source.site')
     ->group(function () {
         Route::post('/create', [MessageController::class, 'create']);
-        Route::post('/update', [MessageController::class, 'update']);
+        Route::post('/update/{message}', [MessageController::class, 'update']);
         Route::delete('/delete', [MessageController::class, 'destroy']);
     });
