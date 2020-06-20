@@ -3,7 +3,6 @@
 namespace FaithGen\Messages\Http\Requests;
 
 use FaithGen\Messages\MessageService;
-use FaithGen\SDK\Helpers\Helper;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,6 +10,8 @@ class GetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @param \FaithGen\Messages\MessageService $messageService
      *
      * @return bool
      */
@@ -27,9 +28,7 @@ class GetRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'message_id' => Helper::$idValidation,
-        ];
+        return [];
     }
 
     public function failedAuthorization()

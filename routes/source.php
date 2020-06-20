@@ -9,5 +9,5 @@ Route::name('messages.')
     ->group(function () {
         Route::post('', [MessageController::class, 'create']);
         Route::post('update/{message}', [MessageController::class, 'update']);
-        Route::delete('/delete', [MessageController::class, 'destroy']);
+        Route::delete('{message}', [MessageController::class, 'destroy']);
     });
